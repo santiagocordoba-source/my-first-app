@@ -34,37 +34,83 @@
         h1 {
             color: #003366;
             font-size: 1.5rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
         }
 
-        p {
-            color: #666666;
+        .event-title {
+            color: #d9272e;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            min-height: 1.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.2rem;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: #555;
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.6rem;
             font-size: 0.95rem;
-            margin-bottom: 1.5rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .input-group input:focus {
+            border-color: #003366;
         }
 
         .counter-display {
             font-size: 4rem;
             font-weight: bold;
-            color: #d9272e;
-            margin: 1rem 0;
+            color: #003366;
+            margin: 0.5rem 0 1.2rem 0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
         }
 
         .btn {
-            background-color: #003366;
-            color: #ffffff;
             border: none;
-            padding: 0.8rem 1.5rem;
-            font-size: 1rem;
+            padding: 0.8rem 1rem;
+            font-size: 0.95rem;
             border-radius: 6px;
             cursor: pointer;
             transition: background-color 0.2s ease, transform 0.1s ease;
-            width: 100%;
             font-weight: 600;
+            flex: 1;
         }
 
-        .btn:hover {
+        .btn-primary {
+            background-color: #003366;
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
             background-color: #002244;
+        }
+
+        .btn-secondary {
+            background-color: #e0e0e0;
+            color: #333333;
+        }
+
+        .btn-secondary:hover {
+            background-color: #cccccc;
         }
 
         .btn:active {
@@ -76,11 +122,19 @@
 
     <div class="card">
         <h1>Colegio Bolívar</h1>
-        <p>Registro de Asistencia a Eventos</p>
+        <div class="event-title" id="eventTitleDisplay">Nombre del Evento</div>
         
+        <div class="input-group">
+            <label for="eventInput">Título del evento:</label>
+            <input type="text" id="eventInput" placeholder="Escribe el nombre del evento..." value="Nombre del Evento">
+        </div>
+
         <div class="counter-display" id="counter">0</div>
         
-        <button class="btn" id="incrementBtn">Registrar Clic</button>
+        <div class="button-group">
+            <button class="btn btn-primary" id="incrementBtn">Registrar Clic</button>
+            <button class="btn btn-secondary" id="resetBtn">Reiniciar</button>
+        </div>
     </div>
 
     <script>
@@ -88,10 +142,26 @@
 
         const counterDisplay = document.getElementById('counter');
         const incrementBtn = document.getElementById('incrementBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const eventInput = document.getElementById('eventInput');
+        const eventTitleDisplay = document.getElementById('eventTitleDisplay');
 
+        // Incrementar contador
         incrementBtn.addEventListener('click', () => {
             count++;
             counterDisplay.textContent = count;
+        });
+
+        // Reiniciar contador
+        resetBtn.addEventListener('click', () => {
+            count = 0;
+            counterDisplay.textContent = count;
+        });
+
+        // Actualizar el título del evento en tiempo real
+        eventInput.addEventListener('input', (e) => {
+            const value = e.target.value.trim();
+            eventTitleDisplay.textContent = value !== '' ? value : 'Nombre del Evento';
         });
     </script>
 
